@@ -16,6 +16,41 @@ navLinks.forEach((link) => {
   });
 });
 
+const experienceTimeline = document.querySelector(".timeline");
+
+if (experienceTimeline) {
+  let timelineUpdateScheduled = false;
+
+  const updateTimelineProgress = () => {
+    const progressPoint = window.innerHeight * 0.7;
+    const timelineBounds = experienceTimeline.getBoundingClientRect();
+    const progress = Math.min(
+      1,
+      Math.max(0, (progressPoint - timelineBounds.top) / timelineBounds.height),
+    );
+
+    experienceTimeline.style.setProperty(
+      "--timeline-progress",
+      `${progress * 100}%`,
+    );
+
+    timelineUpdateScheduled = false;
+  };
+
+  const scheduleTimelineProgress = () => {
+    if (!timelineUpdateScheduled) {
+      timelineUpdateScheduled = true;
+      window.requestAnimationFrame(updateTimelineProgress);
+    }
+  };
+
+  window.addEventListener("scroll", scheduleTimelineProgress, {
+    passive: true,
+  });
+  window.addEventListener("resize", scheduleTimelineProgress);
+  updateTimelineProgress();
+}
+
 /* =========================
    ACTIVE NAVIGATION
 ========================= */
