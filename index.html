@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -77,20 +77,11 @@
                 View My CV
               </a>
             </div>
-
-            <div class="social-links">
-              <a href="https://github.com/LeBlanc21" target="_blank"> GitHub </a>
-
-              <a href="https://www.linkedin.com/in/carlos-miguel-gili-450a3434a/" target="_blank"> LinkedIn </a>
-            </div>
           </div>
 
           <div class="hero-image">
             <div class="profile-circle">
-              <img
-                src="Images/Profile.png"
-                alt="Profile photo"
-              />
+              <img src="Images/Profile.png" alt="Profile photo" />
             </div>
           </div>
         </div>
@@ -168,7 +159,7 @@
           </div>
 
           <div class="skills-grid">
-            <article class="skill-card" tabindex="0">
+            <button class="skill-card" type="button" aria-pressed="false">
               <div class="skill-card-inner">
                 <div class="skill-card-front" aria-hidden="true">
                   <img
@@ -177,14 +168,14 @@
                     alt="HTML logo placeholder"
                   />
                 </div>
-                <div class="skill-card-back">
+                <div class="skill-card-back" aria-hidden="true">
                   <h3>HTML</h3>
                   <p>Semantic and structured web pages.</p>
                 </div>
               </div>
-            </article>
+            </button>
 
-            <article class="skill-card" tabindex="0">
+            <button class="skill-card" type="button" aria-pressed="false">
               <div class="skill-card-inner">
                 <div class="skill-card-front" aria-hidden="true">
                   <img
@@ -193,14 +184,14 @@
                     alt="CSS logo placeholder"
                   />
                 </div>
-                <div class="skill-card-back">
+                <div class="skill-card-back" aria-hidden="true">
                   <h3>CSS</h3>
                   <p>Responsive layouts and modern UI design.</p>
                 </div>
               </div>
-            </article>
+            </button>
 
-            <article class="skill-card" tabindex="0">
+            <button class="skill-card" type="button" aria-pressed="false">
               <div class="skill-card-inner">
                 <div class="skill-card-front" aria-hidden="true">
                   <img
@@ -209,14 +200,14 @@
                     alt="JavaScript logo placeholder"
                   />
                 </div>
-                <div class="skill-card-back">
+                <div class="skill-card-back" aria-hidden="true">
                   <h3>JavaScript</h3>
                   <p>Interactive and dynamic web experiences.</p>
                 </div>
               </div>
-            </article>
+            </button>
 
-            <article class="skill-card" tabindex="0">
+            <button class="skill-card" type="button" aria-pressed="false">
               <div class="skill-card-inner">
                 <div class="skill-card-front" aria-hidden="true">
                   <img
@@ -225,14 +216,14 @@
                     alt="CMS logo placeholder"
                   />
                 </div>
-                <div class="skill-card-back">
+                <div class="skill-card-back" aria-hidden="true">
                   <h3>CMS</h3>
                   <p>Content management system development.</p>
                 </div>
               </div>
-            </article>
+            </button>
 
-            <article class="skill-card" tabindex="0">
+            <button class="skill-card" type="button" aria-pressed="false">
               <div class="skill-card-inner">
                 <div class="skill-card-front" aria-hidden="true">
                   <img
@@ -241,14 +232,14 @@
                     alt="Git and GitHub logo placeholder"
                   />
                 </div>
-                <div class="skill-card-back">
+                <div class="skill-card-back" aria-hidden="true">
                   <h3>Git & GitHub</h3>
                   <p>Version control and project deployment.</p>
                 </div>
               </div>
-            </article>
+            </button>
 
-            <article class="skill-card" tabindex="0">
+            <button class="skill-card" type="button" aria-pressed="false">
               <div class="skill-card-inner">
                 <div class="skill-card-front" aria-hidden="true">
                   <img
@@ -257,12 +248,12 @@
                     alt="UI/UX logo placeholder"
                   />
                 </div>
-                <div class="skill-card-back">
+                <div class="skill-card-back" aria-hidden="true">
                   <h3>UI/UX Design</h3>
                   <p>Modern, clean, and user-friendly interfaces.</p>
                 </div>
               </div>
-            </article>
+            </button>
           </div>
         </div>
       </section>
@@ -329,9 +320,14 @@
 
                   <li>Configure systems and perform routine maintenance</li>
 
-                  <li>Diagnose technical problems and explain solutions clearly</li>
+                  <li>
+                    Diagnose technical problems and explain solutions clearly
+                  </li>
 
-                  <li>Apply problem-solving, communication, and customer service skills</li>
+                  <li>
+                    Apply problem-solving, communication, and customer service
+                    skills
+                  </li>
                 </ul>
               </div>
             </div>
@@ -511,7 +507,9 @@
               <div class="contact-item">
                 <strong>Email</strong>
 
-                <a href="mailto:gilicarlosmiguels@email.com"> gilicarlosmiguels@email.com </a>
+                <a href="mailto:gilicarlosmiguels@email.com">
+                  gilicarlosmiguels@email.com
+                </a>
               </div>
 
               <div class="contact-item">
@@ -525,13 +523,27 @@
               <div class="contact-item">
                 <strong>LinkedIn</strong>
 
-                <a href="https://www.linkedin.com/in/carlos-miguel-gili-450a3434a/" target="_blank">
+                <a
+                  href="https://www.linkedin.com/in/carlos-miguel-gili-450a3434a/"
+                  target="_blank"
+                >
                   Carlos Miguel Gili
                 </a>
               </div>
             </div>
 
-            <form class="contact-form" id="contactForm">
+            <form
+              class="contact-form"
+              id="contactForm"
+              action="https://formsubmit.co/gilicarlosmiguels@email.com"
+              method="POST"
+            >
+              <input
+                type="hidden"
+                name="_template"
+                value="table"
+              />
+
               <input type="text" name="name" placeholder="Your Name" required />
 
               <input
@@ -543,7 +555,7 @@
 
               <input
                 type="text"
-                name="subject"
+                name="_subject"
                 placeholder="Subject"
                 required
               />
@@ -574,7 +586,9 @@
           <p>Computer Engineer • Website Developer • Designer</p>
         </div>
 
-        <p>© <span id="year"></span> Carlos Miguel Gili. All rights reserved.</p>
+        <p>
+          © <span id="year"></span> Carlos Miguel Gili. All rights reserved.
+        </p>
       </div>
     </footer>
 

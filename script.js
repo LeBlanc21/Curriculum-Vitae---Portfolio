@@ -16,6 +16,44 @@ navLinks.forEach((link) => {
   });
 });
 
+const skillCardClickMode = window.matchMedia("(max-width: 900px), (hover: none)");
+
+const setSkillCardFlipped = (card, isFlipped) => {
+  card.classList.toggle("is-flipped", isFlipped);
+  card.setAttribute("aria-pressed", String(isFlipped));
+  card.querySelector(".skill-card-front").setAttribute(
+    "aria-hidden",
+    String(isFlipped),
+  );
+  card.querySelector(".skill-card-back").setAttribute(
+    "aria-hidden",
+    String(!isFlipped),
+  );
+};
+
+document.querySelectorAll(".skill-card").forEach((card) => {
+  card.addEventListener("click", () => {
+    if (!skillCardClickMode.matches) {
+      return;
+    }
+
+    setSkillCardFlipped(card, !card.classList.contains("is-flipped"));
+  });
+
+  card.addEventListener("pointerenter", () => {
+    if (!skillCardClickMode.matches) {
+      setSkillCardFlipped(card, true);
+    }
+  });
+
+  card.addEventListener("pointerleave", () => {
+    if (!skillCardClickMode.matches) {
+      setSkillCardFlipped(card, false);
+    }
+  });
+
+});
+
 const experienceTimeline = document.querySelector(".timeline");
 
 if (experienceTimeline) {
@@ -105,20 +143,3 @@ backToTop.addEventListener("click", () => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* =========================
-   CONTACT FORM
-========================= */
-
-const contactForm = document.getElementById("contactForm");
-
-contactForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const name = contactForm.querySelector('[name="name"]').value;
-
-  alert(
-    `Thank you, ${name}! Your message form is ready to be connected to an email service.`,
-  );
-
-  contactForm.reset();
-});
