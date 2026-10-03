@@ -54,11 +54,24 @@ document.querySelectorAll(".skill-card").forEach((card) => {
 });
 
 const experienceTimeline = document.querySelector(".timeline");
+const sections = document.querySelectorAll("section[id]");
+const backToTop = document.getElementById("backToTop");
+let timelineUpdateScheduled = false;
+let sectionPositions = [];
 
-if (experienceTimeline) {
-  let timelineUpdateScheduled = false;
+const updateSectionPositions = () => {
+  sectionPositions = Array.from(sections, (section) => ({
+    id: section.id,
+    top: window.scrollY + section.getBoundingClientRect().top - 120,
+  }));
+};
 
-  const updateTimelineProgress = () => {
+let activeSectionId = "";
+
+const updateScrollState = () => {
+  const scrollY = window.scrollY;
+
+  if (experienceTimeline) {
     const progressPoint = window.innerHeight * 0.7;
     const timelineBounds = experienceTimeline.getBoundingClientRect();
     const progress = Math.min(
@@ -70,62 +83,44 @@ if (experienceTimeline) {
       "--timeline-progress",
       `${progress * 100}%`,
     );
-
-    timelineUpdateScheduled = false;
-  };
-
-  const scheduleTimelineProgress = () => {
-    if (!timelineUpdateScheduled) {
-      timelineUpdateScheduled = true;
-      window.requestAnimationFrame(updateTimelineProgress);
-    }
-  };
-
-  window.addEventListener("scroll", scheduleTimelineProgress, {
-    passive: true,
-  });
-  window.addEventListener("resize", scheduleTimelineProgress);
-  updateTimelineProgress();
-}
-
-/* =========================
-   ACTIVE NAVIGATION
-========================= */
-
-const sections = document.querySelectorAll("section[id]");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 120;
-
-    if (window.scrollY >= sectionTop) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-
-    if (link.getAttribute("href") === "#" + current) {
-      link.classList.add("active");
-    }
-  });
-});
-
-/* =========================
-   BACK TO TOP
-========================= */
-
-const backToTop = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
   }
+
+  let currentSectionId = "";
+  for (const section of sectionPositions) {
+    if (scrollY >= section.top) {
+      currentSectionId = section.id;
+    } else {
+      break;
+    }
+  }
+
+  if (currentSectionId !== activeSectionId) {
+    activeSectionId = currentSectionId;
+    navLinks.forEach((link) => {
+      link.classList.toggle(
+        "active",
+        link.getAttribute("href") === `#${activeSectionId}`,
+      );
+    });
+  }
+
+  backToTop.classList.toggle("show", scrollY > 500);
+  timelineUpdateScheduled = false;
+};
+
+const scheduleScrollUpdate = () => {
+  if (!timelineUpdateScheduled) {
+    timelineUpdateScheduled = true;
+    window.requestAnimationFrame(updateScrollState);
+  }
+};
+
+updateSectionPositions();
+scheduleScrollUpdate();
+window.addEventListener("scroll", scheduleScrollUpdate, { passive: true });
+window.addEventListener("resize", () => {
+  updateSectionPositions();
+  scheduleScrollUpdate();
 });
 
 backToTop.addEventListener("click", () => {
