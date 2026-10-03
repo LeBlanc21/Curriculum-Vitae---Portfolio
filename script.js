@@ -16,19 +16,19 @@ navLinks.forEach((link) => {
   });
 });
 
-const skillCardClickMode = window.matchMedia("(max-width: 900px), (hover: none)");
+const skillCardClickMode = window.matchMedia(
+  "(max-width: 900px), (hover: none)",
+);
 
 const setSkillCardFlipped = (card, isFlipped) => {
   card.classList.toggle("is-flipped", isFlipped);
   card.setAttribute("aria-pressed", String(isFlipped));
-  card.querySelector(".skill-card-front").setAttribute(
-    "aria-hidden",
-    String(isFlipped),
-  );
-  card.querySelector(".skill-card-back").setAttribute(
-    "aria-hidden",
-    String(!isFlipped),
-  );
+  card
+    .querySelector(".skill-card-front")
+    .setAttribute("aria-hidden", String(isFlipped));
+  card
+    .querySelector(".skill-card-back")
+    .setAttribute("aria-hidden", String(!isFlipped));
 };
 
 document.querySelectorAll(".skill-card").forEach((card) => {
@@ -51,7 +51,6 @@ document.querySelectorAll(".skill-card").forEach((card) => {
       setSkillCardFlipped(card, false);
     }
   });
-
 });
 
 const experienceTimeline = document.querySelector(".timeline");
@@ -142,4 +141,3 @@ backToTop.addEventListener("click", () => {
 ========================= */
 
 document.getElementById("year").textContent = new Date().getFullYear();
-

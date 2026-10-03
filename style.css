@@ -13,10 +13,83 @@ html {
 }
 
 body {
+  position: relative;
   font-family: "Inter", sans-serif;
   background: #0a0a0a;
   color: #f5f5f5;
   line-height: 1.7;
+  overflow-x: hidden;
+  isolation: isolate;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.58) 0%,
+    rgba(249, 115, 22, 0.34) 25%,
+    rgba(249, 115, 22, 0.14) 50%,
+    transparent 72%
+  );
+  filter: blur(55px);
+  opacity: 0.95;
+  z-index: 0;
+  pointer-events: none;
+  animation: glowFloat 12s ease-in-out infinite alternate;
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+body::before {
+  top: 8%;
+  left: -10%;
+}
+
+body::after {
+  right: -12%;
+  bottom: 6%;
+  animation-name: glowFloatReverse;
+  animation-delay: 2s;
+}
+
+@keyframes glowFloat {
+  0% {
+    transform: translate3d(-8vw, -5vh, 0) scale(0.82);
+  }
+  50% {
+    transform: translate3d(12vw, 12vh, 0) scale(1.15);
+  }
+  100% {
+    transform: translate3d(24vw, -8vh, 0) scale(0.95);
+  }
+}
+
+@keyframes glowFloatReverse {
+  0% {
+    transform: translate3d(10vw, 8vh, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-14vw, -10vh, 0) scale(0.8);
+  }
+  100% {
+    transform: translate3d(-22vw, 10vh, 0) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
 }
 
 a {
@@ -239,14 +312,22 @@ footer span {
 
   border: 1px solid transparent;
 
-  transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease,
-    border-color 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 button:not(.skill-card),
 .btn {
-  transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease,
-    border-color 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 button:not(.skill-card):hover,
@@ -348,11 +429,11 @@ button:not(.skill-card):active,
 .section {
   padding: 110px 0;
 
-  background: var(--black);
+  background: rgba(10, 10, 10, 0.82);
 }
 
 .dark-section {
-  background: var(--dark);
+  background: rgba(17, 17, 17, 0.82);
 }
 
 .section-heading {
@@ -466,7 +547,9 @@ button:not(.skill-card):active,
 
   cursor: pointer;
 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .skill-card-inner {
@@ -579,7 +662,6 @@ button:not(.skill-card):active,
   font-size: 1rem;
 
   font-weight: 800;
-
 }
 
 /* =========================
@@ -800,7 +882,9 @@ button:not(.skill-card):active,
 
   display: inline-block;
 
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .project-links a:hover {
@@ -982,7 +1066,7 @@ button:not(.skill-card):active,
 ========================= */
 
 footer {
-  background: #050505;
+  background: rgba(5, 5, 5, 0.86);
 
   border-top: 1px solid var(--border);
 
@@ -1013,6 +1097,8 @@ footer {
 
 .back-to-top {
   position: fixed;
+
+  z-index: 1001;
 
   right: 25px;
 
