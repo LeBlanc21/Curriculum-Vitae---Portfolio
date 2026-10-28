@@ -136,3 +136,73 @@ backToTop.addEventListener("click", () => {
 ========================= */
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* =========================
+   PAGE MOTION
+========================= */
+
+const reducedMotionPreference = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+);
+const revealObserver =
+  "IntersectionObserver" in window
+    ? new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          rootMargin: "0px 0px -8% 0px",
+          threshold: 0,
+        },
+      )
+    : null;
+
+if (revealObserver && !reducedMotionPreference.matches) {
+  const revealGroups = [
+    ".section-heading > *",
+    ".about-text > *",
+    ".about-info .info-item",
+    ".skill-card",
+    ".timeline-item",
+    ".project-card",
+    ".education-card",
+    ".cv-container > *",
+    ".contact-info > *",
+    '.contact-form > :not([type="hidden"])',
+  ];
+  const revealTargets = new Set(
+    document.querySelectorAll(revealGroups.join(", ")),
+  );
+  const entranceTargets = document.querySelectorAll(
+    ".navbar .logo, .navbar .nav-link, .menu-toggle, " +
+      ".hero-content > *, .hero-image",
+  );
+
+  document.documentElement.classList.add("motion-ready");
+
+  const staggerIndexes = new Map();
+  revealTargets.forEach((target) => {
+    const parent = target.parentElement;
+    const index = staggerIndexes.get(parent) ?? 0;
+    staggerIndexes.set(parent, index + 1);
+    target.style.setProperty("--reveal-delay", `${Math.min(index, 5) * 70}ms`);
+    target.classList.add("scroll-reveal");
+    revealObserver.observe(target);
+  });
+
+  entranceTargets.forEach((target, index) => {
+    target.style.setProperty("--entrance-delay", `${Math.min(index, 8) * 75}ms`);
+    target.classList.add("page-enter");
+  });
+
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      entranceTargets.forEach((target) => target.classList.add("is-visible"));
+    });
+  });
+}
